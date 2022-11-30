@@ -5,6 +5,11 @@ rescue_from ActiveRecord::RecordNotFound, with: :record_not_found_method
         render json: Restaurant.all
     end
 
+    # def show 
+     #      resturant = find_restaurant
+      #     render json: resturant, include: [:pizzas], except: [:created_at, :updated_at]
+     # end
+
     def show
         restaurant = find_restaurant
         render json: restaurant, serializer: RestaurantSingleSerializer

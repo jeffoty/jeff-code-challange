@@ -1,10 +1,4 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
-#   Character.create(name: "Luke", movie: movies.first)
+
 
 Restaurant.destroy_all
 Pizza.destroy_all
@@ -24,8 +18,18 @@ pizza3 = Pizza.create(name: Faker::Food.dish, ingredients: Faker::Food.ingredien
 pizza4 = Pizza.create(name: Faker::Food.dish, ingredients: Faker::Food.ingredient)
 pizza5 = Pizza.create(name: Faker::Food.dish, ingredients: Faker::Food.ingredient)
 
-RestaurantPizza.create(price: 15,restaurant_id: restaurant4, pizza_id: pizza1)
-RestaurantPizza.create(price: 26,restaurant_id: restaurant2, pizza_id: pizza5)
-RestaurantPizza.create(price: 11,restaurant_id: restaurant1, pizza_id: pizza2)
-RestaurantPizza.create(price: 20,restaurant_id: restaurant3, pizza_id: pizza4)
-RestaurantPizza.create(price: 7,restaurant_id: restaurant5, pizza_id: pizza3)
+# RestaurantPizza.create(price: 26,restaurant_id: restaurant2, pizza_id: pizza5)
+# RestaurantPizza.create(price: 11,restaurant_id: restaurant1, pizza_id: pizza2)
+# RestaurantPizza.create(price: 20,restaurant_id: restaurant3, pizza_id: pizza4)
+# RestaurantPizza.create(price: 7,restaurant_id: restaurant5, pizza_id: pizza3)
+# RestaurantPizza.create(price: 15,restaurant_id: restaurant4, pizza_id: pizza1)
+
+puts "🍕 Adding pizzas to restaurants..."
+Restaurant.all.each do |restaurant|
+    rand(1..5).times do
+        # get a random pizza
+    pizza = Pizza.find(Pizza.pluck(:id).sample)
+
+    RestaurantPizza.create!(restaurant_id: restaurant.id, pizza_id: pizza.id, price: rand(5..25))
+  end
+end
